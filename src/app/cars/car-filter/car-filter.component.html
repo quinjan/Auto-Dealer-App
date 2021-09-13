@@ -1,0 +1,120 @@
+<div class="filter"> <button class="btn btn-default" type="button" data-bs-toggle="collapse" data-bs-target="#mobile-filter" aria-expanded="false" aria-controls="mobile-filter">Filters<span class="fa fa-filter pl-1"></span></button>
+</div>
+<div id="mobile-filter">
+  <div>
+    <h6 class="p-1 border-bottom">Filter By</h6>
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-action mb-2 rounded">
+          <i class="fas fa-star"></i>
+          <a type="button" data-bs-toggle="collapse" data-bs-target="#Brand" aria-expanded="true" aria-controls="Brand" > Brand </a>
+        </li>
+        <div class="collapse" id="Brand" style="padding-bottom: 20px;">
+          <h6>Type</h6>
+          <form class="ml-md-2">
+              <div class="form-inline border rounded p-sm-2 my-2"> <input type="radio" name="type" id="boring"> <label for="boring" class="pl-1 pt-sm-0 pt-1">Toyota</label> </div>
+              <div class="form-inline border rounded p-sm-2 my-2"> <input type="radio" name="type" id="ugly"> <label for="ugly" class="pl-1 pt-sm-0 pt-1">Mitsubishi</label> </div>
+              <div class="form-inline border rounded p-md-2 p-sm-1"> <input type="radio" name="type" id="notugly"> <label for="notugly" class="pl-1 pt-sm-0 pt-1">Honda</label> </div>
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10" style="padding-top: 15px; margin: 0 auto; text-align: center;">
+                <button type="submit" class="block" >Submit</button>
+                </div>
+              </div>
+          </form>
+        </div>
+        <li class="list-group-item list-group-item-action mb-2 rounded"><i class="fas fa-ruble-sign"></i><a href="#"> Price </a></li>
+        <li class="list-group-item list-group-item-action mb-2 rounded"><i class="far fa-calendar-alt"></i><a href="#"> Year </a></li>
+        <li class="list-group-item list-group-item-action mb-2 rounded">
+          <i class="fas fa-car"></i>
+          <a type="button" data-bs-toggle="collapse" data-bs-target="#Type" aria-expanded="true" aria-controls="Type" > Type </a>
+        </li>
+        <div class="collapse" id="Type" style="padding-bottom: 20px;">
+          <h6>Type</h6>
+          <form class="ml-md-2">
+              <div class="form-inline border rounded p-sm-2 my-2"> <input type="radio" name="type" id="boring"> <label for="boring" class="pl-1 pt-sm-0 pt-1">Sedan</label> </div>
+              <div class="form-inline border rounded p-sm-2 my-2"> <input type="radio" name="type" id="ugly"> <label for="ugly" class="pl-1 pt-sm-0 pt-1">SUV</label> </div>
+              <div class="form-inline border rounded p-md-2 p-sm-1"> <input type="radio" name="type" id="notugly"> <label for="notugly" class="pl-1 pt-sm-0 pt-1">Crossover</label> </div>
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10" style="padding-top: 15px; margin: 0 auto; text-align: center;">
+                <button type="submit" class="block" >Submit</button>
+                </div>
+              </div>
+          </form>
+        </div>
+        <li class="list-group-item list-group-item-action mb-2 rounded"><i class="fas fa-cog"></i><a href="#"> Odometer </a></li>
+    </ul>
+  </div>
+</div>
+<section id="sidebar">
+    <div>
+      <div class="card-image-overlay m-auto">
+        <span *ngIf="manufacturer" class="card-detail-badge">{{manufacturer}}</span>
+        <span *ngIf="type" class="card-detail-badge">{{type}}</span>
+        <span *ngIf="year" class="card-detail-badge">{{year}}</span>
+        <span *ngIf="minPrice || maxPrice" class="card-detail-badge">{{minPrice | currency:'PHP':'symbol':'4.0-0'}}-{{maxPrice | currency:'PHP':'symbol':'4.0-0'}}</span>
+        <span *ngIf="minOdometer || maxOdometer" class="card-detail-badge">{{minOdometer | number:'4.0-0'}}-{{maxOdometer | number:'4.0-0'}}</span>
+      </div>
+        <h6 class="p-1 border-bottom">Filter By</h6>
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-action mb-2 rounded">
+              <i class="fas fa-plus"></i>
+              <a type="button" data-bs-toggle="collapse" data-bs-target="#Brand" aria-expanded="true" aria-controls="Brand" style="padding-left: 10px;" > Brand </a>
+            </li>
+            <div class="collapse" id="Brand" style="padding-bottom: 20px;">
+              <h6>Brand</h6>
+              <form class="ml-md-2">
+                  <div  *ngFor="let filter of carService.filterList.manufacturer" class="form-inline border rounded p-sm-2 my-2"> <input  type="radio" [(ngModel)]='manufacturer' value="{{filter}}" name="Brand"> <label for="boring" class="pl-1 pt-sm-0 pt-1" style="padding-left: 10px;">  {{filter}}</label> </div>
+              </form>
+            </div>
+            <li class="list-group-item list-group-item-action mb-2 rounded"><i class="fas fa-ruble-sign"></i>
+              <a type="button" data-bs-toggle="collapse" data-bs-target="#Price" aria-expanded="true" aria-controls="Price" style="padding-left: 10px;"> Price </a>
+            </li>
+            <div class="collapse" id="Price" style="padding-bottom: 20px;">
+              <h6>Price</h6>
+              <form class="ml-md-2">
+                <header>Minimum</header>
+                <input class="form-inline border rounded p-sm-2 my-2" type="number" min="0" [(ngModel)]='minPrice' placeholder="Min. Price" id="minPrice" name="minPrice">
+                <header>Maximum</header>
+                <input class="form-inline border rounded p-sm-2 my-2" type="number" min="0" [(ngModel)]='maxPrice' placeholder="Max Price" id="maxPrice" name="maxPrice">
+              </form>
+            </div>
+            <li class="list-group-item list-group-item-action mb-2 rounded"><i class="far fa-calendar-alt"></i>
+              <a type="button" data-bs-toggle="collapse" data-bs-target="#Year" aria-expanded="true" aria-controls="Year" style="padding-left: 10px;"> Year </a>
+            </li>
+            <div class="collapse" id="Year" style="padding-bottom: 20px;">
+              <h6>Year</h6>
+              <form class="ml-md-2">
+                <input class="form-inline border rounded p-sm-2 my-2" type="number" min="0" [(ngModel)]='year' id="Year" name="Year">
+              </form>
+            </div>
+            <li class="list-group-item list-group-item-action mb-2 rounded">
+              <i class="fas fa-car"></i>
+              <a type="button" data-bs-toggle="collapse" data-bs-target="#Type" aria-expanded="true" aria-controls="Type" style="padding-left: 10px;" > Type </a>
+            </li>
+            <div class="collapse" id="Type" style="padding-bottom: 20px;">
+              <h6>Type</h6>
+              <form class="ml-md-2">
+                <div  *ngFor="let filter of carService.filterList.type" class="form-inline border rounded p-sm-2 my-2"> <input  type="radio" [(ngModel)]='type' value="{{filter}}" name="Type"> <label for="boring" class="pl-1 pt-sm-0 pt-1" style="padding-left: 10px;">  {{filter}}</label> </div>
+              </form>
+            </div>
+            <li class="list-group-item list-group-item-action mb-2 rounded"><i class="fas fa-cog"></i>
+              <a type="button" data-bs-toggle="collapse" data-bs-target="#Odometer" aria-expanded="true" aria-controls="Odometer" style="padding-left: 10px;"> Odometer </a>
+            </li>
+            <div class="collapse" id="Odometer" style="padding-bottom: 20px;">
+              <h6>Odometer</h6>
+              <form class="ml-md-2">
+                <header>Minimum</header>
+                <input  class="form-inline border rounded p-sm-2 my-2" type="number" min="0" [(ngModel)]='minOdometer' placeholder="Min. Odo" id="minOdometer" name="minOdometer">
+                <header>Maximum</header>
+                <input  class="form-inline border rounded p-sm-2 my-2" type="number" min="0" [(ngModel)]='maxOdometer' placeholder="Max Odo" id="maxOdometer" name="maxOdometer">
+              </form>
+            </div>
+        </ul>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10" style="padding-top: 5px; margin: 0 auto; text-align: center;">
+          <button *ngIf="manufacturer || type || year || minPrice || maxPrice || minOdometer || maxOdometer" (click)="filter()" type="submit" class="btn btn-outline-primary" >Submit</button>
+          <button *ngIf="manufacturer || type || year || minPrice || maxPrice || minOdometer || maxOdometer" (click)="resetFilter()"  class="btn btn-outline-warning" style="margin-left: 5px;">Reset</button>
+          </div>
+        </div>
+      <!-- </form> -->
+    </div>
+</section>

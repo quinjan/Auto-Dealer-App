@@ -1,0 +1,19 @@
+<div class="card rounded" style="margin-top: 20px;">
+  <div class="card-image">
+      <span class="card-notify-year">{{car.year}}</span>
+      <img *ngIf="car.imageUrl" class="img-fluid" src={{car.imageUrl}} alt="Alternate Text" />
+      <img *ngIf="!car.imageUrl" class="img-fluid" src="assets/images/car_default.png" alt="Alternate Text" />
+  </div>
+  <div class="card-image-overlay m-auto" style="padding-top: 20px;">
+    <span class="card-detail-badge">{{car.type}}</span>
+    <!-- <span class="card-detail-badge">{{car.price | currency:'PHP':'symbol':'4.0-0'}}</span> -->
+    <span class="card-detail-badge">{{car.odometer | number:'4.0-0'}} KM</span>
+  </div>
+  <div class="card-body text-center">
+      <div class="ad-title m-auto">
+          <h5 style="color: #ff932c;">{{car.price | currency:'PHP':'symbol-narrow':'4.0-0'}}</h5>
+          <h5>{{car.manufacturer + " " + car.model}}</h5>
+      </div>
+      <a class="ad-btn" routerLink="/car-details/{{car.id}}">View</a>
+  </div>
+</div>

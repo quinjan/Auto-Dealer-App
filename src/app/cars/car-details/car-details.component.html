@@ -1,0 +1,79 @@
+<div class="container contact">
+<div class="row">
+  <div class="col-md-4 p-0">
+    <div class="card" style="text-align: center;" >
+      <h1 class="card-title" style="padding-top: 10px;"><strong>{{car.year}} {{car.manufacturer}} {{car.model}}</strong></h1>
+      <div class="card-img-wrapper">
+        <img *ngIf="car.imageUrl"  class="card-img-top" src={{urlStrings[0]}}>
+        <img *ngIf="!car.imageUrl"  class="card-img-top" src="assets/images/car_default.png">
+      </div>
+      <div class="card-body">
+        <h2 style="color: #ff932c;">{{car.price | currency:'PHP':'symbol-narrow':'4.0-0'}}</h2>
+    </div>
+      <div class="card-footer">
+        <div class="btn-group d-flex">
+          <button (click)="onPurchase()" class="btn btn-success" style="background-color: #ff9b00;">Purchase</button>
+          <button (click)="onBack()" class="btn btn-primary">Back</button>
+        </div>
+      </div>
+  </div>
+  </div>
+  <div class="col-md-7 p-0" style="margin-left: 5px;">
+    <ul class="nav nav-tabs tabs-primary nav-justified" id="advancedTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" role="tab" aria-controls="description" aria-selected="true">Description</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="info-tab" data-bs-toggle="tab" data-bs-target="#info" role="tab" aria-controls="info" aria-selected="false">Gallery</a>
+      </li>
+    </ul>
+    <div class="tab-content" id="advancedTabContent" style="padding-left: 15px; padding-top: 10px; padding-right: 15px;">
+      <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+        <div class="row">
+          <div class="col-md-5">
+              <div class="heading">
+                  <strong>Year</strong>
+                  <p>{{car.year}}</p>
+              </div>
+
+              <div class="heading">
+                  <strong>Type</strong>
+                  <p>{{car.type}}</p>
+              </div>
+
+              <div class="heading">
+                  <strong>Odometer</strong>
+                  <p>{{car.odometer| number: '4.0-0'}} KM</p>
+              </div>
+
+              <div class="heading">
+                  <strong>Transmission</strong>
+                  <p>{{car.transmission}}</p>
+              </div>
+          </div>
+
+          <div class="col-md-5">
+              <div class="heading">
+                  <strong>Color</strong>
+                  <p>{{car.color}}</p>
+              </div>
+
+              <div class="heading">
+                  <strong>Fuel</strong>
+                  <p>{{car.fuel}}</p>
+              </div>
+              <div class="heading">
+                  <strong>Address</strong>
+                  <p *ngIf="car.address && car.city">{{car.address}}, {{car.city}}</p>
+                  <p *ngIf="!car.address && !car.city">N/A</p>
+                  <p *ngIf="car.address && !car.city">{{car.address}}</p>
+                  <p *ngIf="!car.address && car.city">{{car.city}}</p>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="info" role="tabpanel" aria-labelledby="info-tab">
+        <ngx-gallery *ngIf="car.imageUrl" [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+[
+ {
+    "id":1,
+    "manufacturer":"Honda",
+    "model":"Civic",
+    "year":2015,
+    "type":"Sedan",
+    "price":12000,
+    "odometer":14000
+  }
+]

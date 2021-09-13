@@ -1,0 +1,13 @@
+<app-car-filter></app-car-filter>
+<section id="products">
+  <div class="container">
+      <div class="row">
+          <div *ngFor="let car of pageOfItems" class="col-lg-3  col-md-6">
+            <app-car-card [car]="car"></app-car-card>
+          </div>
+      </div>
+      <div class="pb-0 pt-3">
+        <jw-pagination [pageSize]=8 [items]="carService.list" (changePage)="onChangePage($event)"></jw-pagination>
+      </div>
+  </div>
+</section>

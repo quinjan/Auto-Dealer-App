@@ -1,0 +1,213 @@
+<div class="container contact">
+	<div class="row">
+		<div class="col-md-3">
+			<div class="contact-info">
+				<img src="/assets/images/icon.png" style="max-width: 100%; max-height: 100%;"alt="image"/>
+				<h2 style="text-align: center;">Sell Your Car With Ease!</h2>
+			</div>
+		</div>
+		<div class="col-lg-9">
+
+      <mat-stepper [linear]="isLinear" #stepper>
+        <mat-step [stepControl]="Details">
+          <form [formGroup]="Details" autocomplete="off">
+            <ng-template matStepLabel>Primary Details</ng-template>
+            <div class="form-group">
+                <mat-label>Manufacturer</mat-label>
+                <input type="text" class="form-control" formControlName="Manufacturer" required #carManufacturer (keyup)="carService.formData.manufacturer=carManufacturer.value" placeholder="ex.: Toyota, Mitsubishi, Suzuki" id="Manufacturer" name="Manufacturer">
+                <small *ngIf="Manufacturer.invalid && Manufacturer.touched" class="text-danger">Manufacturer is Required</small>
+            </div>
+            <div class="form-group">
+                <mat-label>Model</mat-label>
+                <input type="text" class="form-control" formControlName="Model" required #carModel (keyup)="carService.formData.model=carModel.value" placeholder="ex.: Vios, Mirage, Fortuner" id="Model" name="Model">
+                <small *ngIf="Model.invalid && Model.touched" class="text-danger">Model is Required</small>
+            </div>
+            <div class="form-group">
+              <mat-label>Year:</mat-label>
+              <input type="number" min="0" class="form-control" formControlName="Year" required #carYear (keyup)="carService.formData.year=carYear.valueAsNumber" placeholder="Year Manufactured" id="Year" name="Year">
+              <small *ngIf="Year.invalid && Year.touched" class="text-danger">Year is Required</small>
+            </div>
+            <div class="form-group">
+              <mat-label>Odometer (in KM):</mat-label>
+              <input type="number" min="0" required  formControlName="Odometer" #carOdometer (keyup)="carService.formData.odometer=carOdometer.valueAsNumber" class="form-control"  placeholder="Enter Total Mileage" id="Odometer" name="Odometer">
+              <small *ngIf="Odometer.invalid && Odometer.touched" class="text-danger">Odometer is Required</small>
+            </div>
+            <div class="form-group">
+              <mat-label>Type:</mat-label>
+              <select class="form-control" required formControlName="Type" [(ngModel)]="carService.formData.type" placeholder="Choose Type" id="Type" name="Type" >
+                <option value="" disabled>Choose one</option>
+                <option [label] ="name" [selected]="name" *ngFor="let name of filters.types" [value]="name">{{name}}</option>
+              </select>
+              <!-- <input type="text" required formControlName="Type" #carType (keyup)="carService.formData.type=carType.value" class="form-control" placeholder="ex.: Sedan, SUV, Crossover" id="Type" name="Type"> -->
+              <small *ngIf="Type.invalid && Type.touched" class="text-danger">Type is Required</small>
+            </div>
+            <div class="form-group">
+              <mat-label>Price (PHP):</mat-label>
+              <input type="number" min="0" required formControlName="Price" #carPrice (keyup)="carService.formData.price=carPrice.valueAsNumber" class="form-control" placeholder="Enter Amount" id="Price" name="Price">
+              <small *ngIf="Price.invalid && Price.touched" class="text-danger">Price is Required</small>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10" style="padding-top: 5px;">
+              <button class="btn btn-secondary btn-sm"  matStepperNext [disabled]="Details.invalid" >Next</button>
+              </div>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="AdditionalDetails" label="Additional Details">
+            <form [formGroup]="AdditionalDetails" autocomplete="off">
+              <div class="form-group">
+                <mat-label>Color:</mat-label>
+                <input type="text"  formControlName="Color" #carColor (keyup)="carService.formData.color=carColor.value" class="form-control" placeholder="ex.: Mettalic Red" id="Color" name="Color">
+                <small *ngIf="Color.invalid" class="text-danger">Color is Required</small>
+              </div>
+              <div class="form-group">
+                <mat-label>Transmission:</mat-label>
+                <select class="form-control" required formControlName="Transmission" [(ngModel)]="carService.formData.transmission" id="Transmission" name="Transmission" >
+                  <option value="" disabled>Choose one</option>
+                  <option [label] ="name"  *ngFor="let name of filters.transmissions" [value]="name">{{name}}</option>
+                </select>
+                <small *ngIf="Transmission.invalid" class="text-danger">Transmission is Required</small>
+                <!-- <input type="text"  formControlName="Transmission" #carTransmission (keyup)="carService.formData.transmission=carTransmission.value" class="form-control" placeholder="AT, MT, DCT, CVT" id="Transmission" name="Transmission"> -->
+              </div>
+              <div class="form-group">
+                <mat-label>Fuel:</mat-label>
+                <select class="form-control" required formControlName="Fuel" [(ngModel)]="carService.formData.fuel" id="Fuel" name="Fuel" >
+                  <option value="" disabled>Choose one</option>
+                  <option [label] ="name"  *ngFor="let name of filters.fuels" [value]="name">{{name}}</option>
+                </select>
+                <small *ngIf="Fuel.invalid" class="text-danger">Fuel is Required</small>
+              </div>
+              <div class="form-group">
+                <mat-label>Address:</mat-label>
+                <input type="text"  formControlName="Address" #carAddress (keyup)="carService.formData.address=carAddress.value" class="form-control" placeholder="Place your address here." id="Address" name="Address">
+              </div>
+              <div class="form-group">
+                <mat-label>City:</mat-label>
+                <input type="text"  formControlName="City" #carCity (keyup)="carService.formData.city=carCity.value" class="form-control" placeholder="ex.: Metro Manila" id="City" name="City">
+              </div>
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10" style="padding-top: 5px;">
+                  <button class="btn btn-secondary btn-sm"  matStepperPrevious>Back</button>
+                  <button class="btn btn-secondary btn-sm" matStepperNext style="margin-left: 5px;">Next</button>
+                </div>
+              </div>
+            </form>
+        </mat-step>
+
+        <mat-step>
+          <ng-template matStepLabel>Upload Image</ng-template>
+          <table class="table table-light">
+            <thead>
+              <tr>
+                <th class="text-left">Name</th>
+                <th class="text-left">Status</th>
+                <th class="text-left">URLS</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of previews; index as i">
+                <td>{{ item }}</td>
+                <td>
+
+                  <span *ngIf="progressInfos[i]" class="tag tag-success"></span>
+                  <span *ngIf="!progressInfos[i]" class="tag tag-danger"></span>
+                </td>
+                <td>
+                  <span >{{urls[i]}}</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="row">
+            <div class="col-8">
+              <label class="btn btn-default p-0">
+                <input type="file" #fileUploader accept="image/*" multiple (change)="getFileDetails($event)" />
+              </label>
+            </div>
+            <div class="col-4" style="text-align: right;">
+              <button class="btn btn-secondary btn-sm"  matStepperPrevious style="margin-right: 5px;">Back</button>
+              <button class="btn btn-outline-danger btn-sm" (click)="resetFiles()" style="margin-right: 5px;">Clear</button>
+              <button class="btn btn-success btn-sm" [disabled]="!fileUploader.value || progressInfos[0]" (click)="uploadFiles()" style="margin-right: 5px;" >Upload</button>
+              <button class="btn btn-secondary btn-sm" matStepperNext>Next</button>
+            </div>
+          </div>
+        </mat-step>
+
+        <mat-step>
+          <ng-template matStepLabel>Review</ng-template>
+          <div class="row" >
+            <div class="col-md-5">
+              <div class="heading">
+                <strong>Manufacturer</strong>
+                <p>{{carService.formData.manufacturer}}</p>
+              </div>
+
+              <div class="heading">
+                <strong>Model</strong>
+                <p>{{carService.formData.model}}</p>
+              </div>
+
+              <div class="heading">
+                <strong>Year</strong>
+                <p *ngIf="carService.formData.year">{{carService.formData.year}}</p>
+              </div>
+
+              <div class="heading">
+                <strong>Odometer</strong>
+                <p *ngIf="carService.formData.odometer">{{carService.formData.odometer| number: '4.0-0'}} KM</p>
+              </div>
+
+              <div class="heading">
+                <strong>Price</strong>
+                <p *ngIf="carService.formData.price">{{carService.formData.price| currency:'PHP':'symbol-narrow':'4.0-0'}}</p>
+              </div>
+
+
+            </div>
+            <div class="col-md-5">
+              <div class="heading">
+                <strong>Type</strong>
+                <p *ngIf="carService.formData.type">{{carService.formData.type}}</p>
+                <p *ngIf="!carService.formData.type">N/A</p>
+              </div>
+
+              <div class="heading">
+                <strong>Transmission</strong>
+                <p *ngIf="carService.formData.transmission">{{carService.formData.transmission}}</p>
+                <p *ngIf="!carService.formData.transmission">N/A</p>
+              </div>
+
+              <div class="heading">
+                <strong>Color</strong>
+                <p *ngIf="carService.formData.color">{{carService.formData.color}}</p>
+                <p *ngIf="!carService.formData.color">N/A</p>
+              </div>
+
+              <div class="heading">
+                <strong>Fuel</strong>
+                <p *ngIf="carService.formData.fuel">{{carService.formData.fuel}}</p>
+                <p *ngIf="!carService.formData.fuel">N/A</p>
+              </div>
+
+              <div class="heading">
+                <strong>Address, City</strong>
+                <p *ngIf="carService.formData.address || carService.formData.city">{{carService.formData.address}}, {{carService.formData.city}}</p>
+                <p *ngIf="!carService.formData.address && !carService.formData.city">N/A</p>
+              </div>
+            </div>
+          </div>
+          <div class="row" style="padding-top: 10px;">
+            <div class="col">
+              <button class="btn btn-secondary btn-sm"  matStepperPrevious style="margin-right: 5px;">Back</button>
+              <button class="btn btn-outline-danger btn-sm" (click)="resetForm(stepper)">Reset</button>
+            </div>
+            <div class="col" style="text-align: right;">
+              <button class="btn btn-success btn-md"  (click)="onSubmit(stepper)">Submit</button>
+            </div>
+          </div>
+        </mat-step>
+
+      </mat-stepper>
+		</div>
+	</div>
+</div>
