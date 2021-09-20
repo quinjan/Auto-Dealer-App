@@ -20,27 +20,27 @@ export class CarsService {
 
 
   getAllCars() {
-    return this.http.get<any>(this.urlBase + 'cars')
+    return this.http.get<any>(this.urlBase + 'cars/' + 'GetAllCars')
   }
 
   getCarDetails(id: number) {
-    return this.http.get<any>(this.urlBase + 'cars/' + 'carDetails?id=' + id)
+    return this.http.get<any>(this.urlBase + 'cars/' + 'CarDetails?id=' + id)
   }
 
   postCar(car: carDetails){
-    return this.http.post(this.urlBase+'cars',car);
+    return this.http.post(this.urlBase + 'cars', car);
   }
 
   filterCars(manufacturer: string, type: string, year: number, minPrice: number, maxPrice: number, minOdometer: number, maxOdometer: number) {
     return this.http.get<any>(
-      this.urlBase+'cars/'+'filter?'+'manufacturer='+manufacturer+'&year='+year+'&type='+type+'&minPrice='+minPrice+'&maxPrice='+maxPrice+'&minOdometer='+minOdometer+'&maxOdometer='+maxOdometer)
+      this.urlBase+'cars/'+'Filter?'+'manufacturer='+manufacturer+'&year='+year+'&type='+type+'&minPrice='+minPrice+'&maxPrice='+maxPrice+'&minOdometer='+minOdometer+'&maxOdometer='+maxOdometer)
   }
 
   getCarFilters() {
-    return this.http.get<any>(this.urlBase + 'cars/getFilters');
+    return this.http.get<any>(this.urlBase + 'cars/GetFilters');
   }
 
   deleteCar(id: number){
-    return this.http.delete(this.urlBase+'cars/carDetails?id='+id);
+    return this.http.delete(this.urlBase+'cars/CarDetails?id='+id);
   }
 }

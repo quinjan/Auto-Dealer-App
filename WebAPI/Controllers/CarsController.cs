@@ -30,38 +30,38 @@ namespace WebAPI.Controllers
       return Created(HttpContext.Request.Scheme + "://" + HttpContext.Request.Host + HttpContext.Request.Path + "/" + car.Id, car);
     }
 
-    [HttpDelete("carDetails")]
+    [HttpDelete("CarDetails")]
     public IActionResult DeleteCar(int id)
     {
       var car = _carData.GetCar(id);
 
       if (car != null)
       {
-        _carData.deleteCar(car);
+        _carData.DeleteCar(car);
         return Ok();
       }
       return NotFound($"Car with Id: {id} was not found");
     }
 
-    [HttpPut("carDetails")]
+    [HttpPut("CarDetails")]
     public IActionResult EditCar(int id, Car car)
     {
       var existingCar = _carData.GetCar(id);
       if (existingCar != null)
       {
         car.Id = existingCar.Id;
-        return Ok(_carData.editCar(car));
+        return Ok(_carData.EditCar(car));
       }
       return NotFound($"Car with Id: {id} was not found");
     }
 
-    [HttpGet]
+    [HttpGet("GetAllCars")]
     public IActionResult GetCars()
     {
       return Ok(_carData.GetCars());
     }
 
-    [HttpGet("carDetails")]
+    [HttpGet("CarDetails")]
     public IActionResult GetCar(int id)
     {
       var car = _carData.GetCar(id);
@@ -73,22 +73,22 @@ namespace WebAPI.Controllers
       return NotFound($"Car with Id: {id} was not found");
     }
 
-    [HttpGet("filter")]
-    public IActionResult filterCars(string manufacturer, string type, int year, int minPrice, int maxPrice, int minOdometer, int maxOdometer)
+    [HttpGet("Filter")]
+    public IActionResult FilterCars(string manufacturer, string type, int year, int minPrice, int maxPrice, int minOdometer, int maxOdometer)
     {
       if (string.IsNullOrWhiteSpace(manufacturer)
                  && string.IsNullOrWhiteSpace(type) && year == 0 && minPrice == 0 && maxPrice == 0 && minOdometer == 0 && maxOdometer == 0)
       {
         return BadRequest();
       }
-      return Ok(_carData.filter(manufacturer, type, year, minPrice, maxPrice, minOdometer, maxOdometer));
+      return Ok(_carData.Filter(manufacturer, type, year, minPrice, maxPrice, minOdometer, maxOdometer));
     }
 
-    [HttpGet("getFilters")]
-    public IActionResult getFilters()
+    [HttpGet("GetFilters")]
+    public IActionResult GetFilters()
     {
 
-      return Ok(_carData.getFilters());
+      return Ok(_carData.GetFilters());
     }
   }
 }

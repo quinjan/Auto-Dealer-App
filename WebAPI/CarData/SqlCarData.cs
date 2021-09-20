@@ -21,13 +21,13 @@ namespace WebAPI.CarData
       return car;
     }
 
-    public void deleteCar(Car car)
+    public void DeleteCar(Car car)
     {
       _carContext.Cars.Remove(car);
       _carContext.SaveChanges();
     }
 
-    public Car editCar(Car car)
+    public Car EditCar(Car car)
     {
       var exsistingCar = _carContext.Cars.Find(car.Id); //where
       if (exsistingCar != null)
@@ -54,7 +54,7 @@ namespace WebAPI.CarData
       return _carContext.Cars.ToList();
     }
 
-    public List<Car> filter(string manufacturer, string type, int year, int minPrice, int maxPrice, int minOdometer, int maxOdometer)
+    public List<Car> Filter(string manufacturer, string type, int year, int minPrice, int maxPrice, int minOdometer, int maxOdometer)
     {
       var collection = _carContext.Cars as IQueryable<Car>;
 
@@ -87,7 +87,7 @@ namespace WebAPI.CarData
       return collection.ToList();
     }
 
-    public CarFilter getFilters()
+    public CarFilter GetFilters()
     {
       var collection = new CarFilter();
       collection.Manufacturer = _carContext.Cars.Select(x => x.Manufacturer).Distinct().ToList();

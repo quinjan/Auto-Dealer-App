@@ -2,7 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\UnitTest",
-    "\\WebAPI"
+    "\\WebAPI",
+    "\\WebAPI\\Controllers"
   ],
+  "SelectedNode": "\\WebAPI\\Controllers\\CarsController.cs",
   "PreviewInSolutionExplorer": false
 }

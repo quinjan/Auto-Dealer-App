@@ -14,12 +14,12 @@ namespace WebAPI.CarData
 
     Car AddCar(Car car);
 
-    void deleteCar(Car car);
+    void DeleteCar(Car car);
 
-    Car editCar(Car car);
+    Car EditCar(Car car);
 
-    List<Car> filter(string manufacturer, string type, int year, int minPrice, int maxPrice, int minOdometer, int maxOdometer);
+    List<Car> Filter(string manufacturer, string type, int year, int minPrice, int maxPrice, int minOdometer, int maxOdometer);
 
-    CarFilter getFilters();
+    CarFilter GetFilters();
   }
 }
